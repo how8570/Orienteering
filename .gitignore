@@ -42,3 +42,5 @@
 # End of https://www.toptal.com/developers/gitignore/api/code,database,go
 
 /data/
+/asserts/
+tmp.md

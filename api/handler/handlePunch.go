@@ -1,4 +1,4 @@
-package apihandler
+package handler
 
 import (
 	"database/sql"

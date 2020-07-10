@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	// handler functions
 	handler "./api/handler"
 
 	"github.com/gorilla/mux"
@@ -24,13 +25,16 @@ func init() {
 func main() {
 	// new a uuid
 	u1, _ := uuid.NewV4()
-	fmt.Printf("UUIDv4: %s\n", u1)
-	fmt.Printf("%v", time.Now().Format(time.RFC1123))
+	fmt.Println("UUIDv4: %s", u1)
+	fmt.Println("%v", time.Now().Format(time.RFC1123))
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", handler.HandleIndex)
 	r.HandleFunc("/punch", handler.HandlePunch)
 	r.HandleFunc("/event/names", handler.HandleEventNames)
+	// "/event/<UUID>/imgae"
+	r.HandleFunc("/event/{UUID:[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}}/image", handler.HandleEventImage)
+	// "/event/<UUID>/points"
 	r.HandleFunc("/event/{UUID:[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}}/points", handler.HandleEventPoints)
 	err := http.ListenAndServe(":80", r)
 	if err != nil {
